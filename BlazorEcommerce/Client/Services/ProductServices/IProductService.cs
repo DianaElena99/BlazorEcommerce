@@ -8,5 +8,6 @@ namespace BlazorEcommerce.Client.Services.ProductServices
         List<Product> Products { get; set; }
         Task GetProducts();
         Task<ServiceResponse<Product>> GetProductById(int productId);
+        Task<List<String>> GetProductSearchSuggestions(string searchString);
     }
 }

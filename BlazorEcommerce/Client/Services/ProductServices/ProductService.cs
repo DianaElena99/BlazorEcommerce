@@ -29,6 +29,10 @@ namespace BlazorEcommerce.Client.Services.ProductServices
             }
         }
 
-        
+        public async Task<List<string>> GetProductSearchSuggestions(string searchText)
+        {
+            var result = await _httpClient.GetFromJsonAsync<List<String>>($"search/{searchText}/");
+            return result;
+        }
     }
 }

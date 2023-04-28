@@ -15,26 +15,29 @@ else
     <ul class="list-unstyled">
         @foreach(var product in ProductService.Products)
         {
-            <li class="media my-3">
-                <div class="media-img-wrapper mr-2">
-                    <a href="/product/@product.Id">
-                        @if (!string.IsNullOrEmpty(product.ImageURL))
-                        {
-                            <img class="media-img" src="@product.ImageURL" alt="@product.Name" />
-                        }
+            <MudCard>
+                <li class="media my-3">
+                    <div class="media-img-wrapper mr-2">
+                        <a href="/product/@product.Id">
+                            @if (!string.IsNullOrEmpty(product.ImageURL))
+                            {
+                                <img class="media-img" src="@product.ImageURL" alt="@product.Name" />
+                            }
 
-                    </a>
-                </div>
-                <div class="media-body">
-                    <a href="/product/@product.Id">
-                        <h4 class="mb-0">@product.Name</h4>
-                    </a>
-                    
-                    <h5 class="price">
-                        $@product.Price
-                    </h5>
-                </div>
-            </li>
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="/product/@product.Id">
+                            <h4 class="mb-0">@product.Name</h4>
+                        </a>
+
+                        <h5 class="price">
+                            $@product.Price
+                        </h5>
+                    </div>
+                </li>
+            </MudCard>
+            
         }
     </ul>
 
