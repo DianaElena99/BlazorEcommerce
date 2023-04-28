@@ -1,0 +1,12 @@
+﻿.media-img{
+   max-height:200px;
+   max-width:200px;
+}
+li {
+    list-style-type: none;
+    padding-bottom: 20px;
+}
+
+.media-body{
+    max-width: 500px;
+}

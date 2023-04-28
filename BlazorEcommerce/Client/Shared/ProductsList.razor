@@ -1,0 +1,34 @@
+﻿@using BlazorEcommerce.Shared.Models;
+
+@inject HttpClient Http;
+
+<h3>Products List</h3>
+<br />
+<ul>
+    @foreach(var product in Products)
+    {
+        <li class="media my-3">    
+            <div class="media-img-wrapper">
+                <img class="media-img" src="@product.ImageURL" alt="@product.Name"/>
+            </div>
+            
+            <div class="media-body">
+                <h4>@product.Name • $@product.Price</h4>
+                <p>@product.Description</p>
+            </div>
+        </li>
+    }
+</ul>
+
+@code {
+    private static List<Product> Products = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Http.GetFromJsonAsync<List<Product>>("api/Product/");
+        if (result != null)
+        {
+            Products = result;
+        }
+    }
+}
