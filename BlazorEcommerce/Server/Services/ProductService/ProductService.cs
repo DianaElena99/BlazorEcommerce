@@ -33,7 +33,11 @@ namespace BlazorEcommerce.Server.Services.ProductService
 
         public async Task<ServiceResponse<Product>> GetProductById(int productId)
         {
-            throw new NotImplementedException();
+            var response = new ServiceResponse<Product>
+            {
+                Data = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == productId),
+            };
+            return response;
         }
 
         public async Task<ServiceResponse<Product>> UpdateProduct(Product product)

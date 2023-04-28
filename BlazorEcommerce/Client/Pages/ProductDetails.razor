@@ -1,0 +1,36 @@
+﻿@page "/product/{id:int}"
+@using BlazorEcommerce.Client.Services.ProductServices;
+@using BlazorEcommerce.Shared.Models;
+@inject IProductService ProductService
+
+@if(product == null)
+{
+    <span>Loading product...</span>
+}
+else
+{
+    <div class="media">
+        <div class="media-img">
+            <img src = "@product.ImageURL"/>
+        </div>
+        <div>
+            <p>@product.Description</p>
+        </div>
+    </div>
+}
+
+@code {
+    private Product? product = null;
+
+    [Parameter]
+    public int Id{get;set;}
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var result = await ProductService.GetProductById(Id);
+        if (result.Success)
+        {
+            product = result.Data;
+        }
+    }
+}
