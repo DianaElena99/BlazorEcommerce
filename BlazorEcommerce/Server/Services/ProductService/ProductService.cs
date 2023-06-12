@@ -1,6 +1,7 @@
 ﻿using BlazorEcommerce.Server.Data;
 using BlazorEcommerce.Shared.Models;
 using BlazorEcommerce.Shared.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorEcommerce.Server.Services.ProductService
 {
@@ -14,12 +15,27 @@ namespace BlazorEcommerce.Server.Services.ProductService
         }
         public async Task<ServiceResponse<Product>> CreateProduct(Product product)
         {
-            throw new NotImplementedException();
+            _dataContext.Products.Add(product);
+            await _dataContext.SaveChangesAsync();
+            return new ServiceResponse<Product> { Data = product };
         }
 
         public async Task<ServiceResponse<bool>> DeleteProduct(int productId)
         {
-            throw new NotImplementedException();
+            var dbProduct = await _dataContext.Products.FindAsync(productId);
+            if (dbProduct != null)
+            {
+                return new ServiceResponse<bool>
+                {
+                    Success = true,
+                    Data = false,
+                    Message = "Product not found"
+                };
+            }
+
+            _dataContext.Products.Remove(dbProduct);
+            await _dataContext.SaveChangesAsync();
+            return new ServiceResponse<bool> { Data = true };
         }
 
         public async Task<ServiceResponse<List<Product>>> GetAllProducts()
@@ -40,6 +56,7 @@ namespace BlazorEcommerce.Server.Services.ProductService
             return response;
         }
 
+        //TODO
         public async Task<ServiceResponse<Product>> UpdateProduct(Product product)
         {
             throw new NotImplementedException();
